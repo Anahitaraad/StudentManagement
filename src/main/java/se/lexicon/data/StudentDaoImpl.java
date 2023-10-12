@@ -7,33 +7,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StudentDaoListImpl implements StudentDao {
+public class StudentDaoImpl implements StudentDao {
 
-    //database mimic
     private List<Student> students;
 
-    //memory allocation
-    public StudentDaoListImpl() {
+    public StudentDaoImpl() {
+        System.out.println("Student list initialized and ready to use ...");
         this.students = new ArrayList<>();
     }
 
     @Override
     public Student save(Student student) {
-        return null;
+        students.add(student);
+        return student;
     }
 
     @Override
     public Student find(int id) {
-        return null;
+        return students.stream()
+                .filter(student -> student.getId()==id)
+                .findFirst().orElse(null);
     }
 
     @Override
     public List<Student> findAll() {
-        return null;
+        return students;
     }
 
     @Override
     public void delete(int id) {
+        students.remove(find(id));
 
     }
 }
